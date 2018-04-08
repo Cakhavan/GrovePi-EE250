@@ -10,8 +10,8 @@ class Direction(Enum):
 # MQTT variables
 broker_hostname = "eclipse.usc.edu"
 broker_port = 11000
-ultrasonic_ranger1_topic = "ultrasonic_ranger1"
-ultrasonic_ranger2_topic = "ultrasonic_ranger2"
+ultrasonic_ranger1_topic = "test/ultrasonic_ranger1"
+ultrasonic_ranger2_topic = "test/ultrasonic_ranger2"
 
 # Lists holding the ultrasonic ranger sensor distance readings. Change the 
 # value of MAX_LIST_LENGTH depending on how many distance samples you would 
@@ -26,6 +26,37 @@ def prescence():
     else:
         return False
 
+def movement():
+    if abs(ranger1_slope_avg) > 5 or abs(ranger2_slope_avg) > 5:
+
+        return True
+
+    else:
+
+        return False
+
+def direction():
+    if ranger1_slope_avg > ranger2_slope_avg:
+        
+        return d.Left
+
+    else:
+
+        return d.Right
+
+def position():
+
+    if (ranger1_dist_avg < ranger2_dist_avg - 5) or (ranger1_dist_avg < ranger2_dist_avg + 5):
+
+        return d.Left
+
+    else if (ranger1_dist_avg > ranger2_dist_avg - 5) or (ranger1_dist_avg < ranger2_dist_avg + 5):
+
+        return d.Right
+
+    else 
+
+        return d.Middle
 
 
 
@@ -63,6 +94,8 @@ if __name__ == '__main__':
     client.connect(broker_hostname, broker_port, 60)
     client.loop_start()
 
+    d = Direction()
+
     while True:
         """ You have two lists, ranger1_dist and ranger2_dist, which hold a window
         of the past MAX_LIST_LENGTH samples published by ultrasonic ranger 1
@@ -76,5 +109,17 @@ if __name__ == '__main__':
         
         print("ranger1: " + str(ranger1_dist[-1:]) + ", ranger2: " + 
             str(ranger2_dist[-1:])) 
+
+        if prescence() == True:
+
+            if movement() == True:
+
+                print(direction())
+                print(position())
+
+            else:
+                print("still")
+        else:
+            print("not present")
         
         time.sleep(0.2)
