@@ -10,8 +10,8 @@ class Direction(Enum):
 # MQTT variables
 broker_hostname = "eclipse.usc.edu"
 broker_port = 11000
-ultrasonic_ranger1_topic = "test/ultrasonic_ranger1"
-ultrasonic_ranger2_topic = "test/ultrasonic_ranger2"
+ultrasonic_ranger1_topic = "ultrasonic_ranger1"
+ultrasonic_ranger2_topic = "ultrasonic_ranger2"
 
 # Lists holding the ultrasonic ranger sensor distance readings. Change the 
 # value of MAX_LIST_LENGTH depending on how many distance samples you would 
@@ -37,25 +37,36 @@ def movement():
 
 def direction():
     if ranger1_slope_avg > ranger2_slope_avg:
+
+        response = requests.post("http://0.0.0.0:5000/post-event", headers = hdr,
+                                 data = json.dumps(payload_l))
         
         return d.Left
 
     else:
 
+         response = requests.post("http://0.0.0.0:5000/post-event", headers = hdr,
+                                 data = json.dumps(payload_r))
         return d.Right
 
 def position():
 
     if (ranger1_dist_avg < ranger2_dist_avg - 5) or (ranger1_dist_avg < ranger2_dist_avg + 5):
 
+        response = requests.post("http://0.0.0.0:5000/post-event", headers = hdr,
+                                 data = json.dumps(payload_sl))
         return d.Left
 
     else if (ranger1_dist_avg > ranger2_dist_avg - 5) or (ranger1_dist_avg < ranger2_dist_avg + 5):
 
+        response = requests.post("http://0.0.0.0:5000/post-event", headers = hdr,
+                                 data = json.dumps(payload_sr))
         return d.Right
 
     else 
 
+        response = requests.post("http://0.0.0.0:5000/post-event", headers = hdr,
+                                 data = json.dumps(payload_sm))
         return d.Middle
 
 
@@ -96,6 +107,36 @@ if __name__ == '__main__':
 
     d = Direction()
 
+    hdr = {
+        'Content-Type': 'application/json',
+        'Authorization': None #not using HTTP secure
+    }
+
+    payload_r = {
+        'time': str(datetime.now()),
+        'event': "Moving Right"
+    }
+    payload_l = {
+        'time': str(datetime.now()),
+        'event': "Moving Left"
+    }
+    payload_sl = {
+        'time': str(datetime.now()),
+        'event': "Still-Left"
+    }
+    payload_sr = {
+        'time': str(datetime.now()),
+        'event': "Stil-Right"
+    }
+    payload_sm = {
+        'time': str(datetime.now()),
+        'event': "Still-Middle"
+    }
+    payload_np = {
+        'time': str(datetime.now()),
+        'event': "Not Present"
+    }
+
     while True:
         """ You have two lists, ranger1_dist and ranger2_dist, which hold a window
         of the past MAX_LIST_LENGTH samples published by ultrasonic ranger 1
@@ -115,11 +156,16 @@ if __name__ == '__main__':
             if movement() == True:
 
                 print(direction())
+
                 print(position())
 
             else:
+
                 print("still")
+
         else:
+            response = requests.post("http://0.0.0.0:5000/post-event", headers = hdr,
+                                 data = json.dumps(payload_np))
             print("not present")
         
         time.sleep(0.2)
