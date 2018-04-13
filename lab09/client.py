@@ -87,12 +87,14 @@ if __name__ == '__main__':
     client.connect(host = broker_hostname, port = broker_port, keepalive =  60)
     client.loop_start()
 
+    pinMode(4,"OUTPUT")
  
 
     while True:
 
         if led == "0":
             print("LED IS OFF")
+
         else:
             print("LED IS ON")
 
