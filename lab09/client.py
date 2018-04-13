@@ -34,12 +34,8 @@ def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     client.subscribe(led_topic)
     client.subscribe(lcd_topic)
-    client.subscribe(humidity_topic)
-    client.subscribe(temp_topic)
     client.message_callback_add(led_topic, led_callback)
     client.message_callback_add(lcd_topic,lcd_callback)
-    client.message_callback_add(humidity_topic, humidity_callback)
-    client.message_callback_add(temp_topic, temp_callback)
 
 def led_callback(client, userdata, msg):
     global led
