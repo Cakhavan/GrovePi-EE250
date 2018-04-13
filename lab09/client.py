@@ -45,11 +45,11 @@ def led_callback(client, userdata, msg):
     global led
     
     if led == "1" and str(msg.payload,"utf-8") == "1":
-
+        digitalWrite(4,0)
         led=  "0"
 
     else: 
-
+        digitalWrite(4,1)
         led = str(msg.payload, "utf-8")
 
     print("on_message: " + msg.topic + " " + led)
