@@ -18,7 +18,7 @@ sensor = 4
 blue = 0    # The Blue colored sensor.
 white = 1   # The White colored sensor.
 
-global led
+
 led = "0"
 temperature = 0
 hum = 0
@@ -40,6 +40,7 @@ def on_connect(client, userdata, flags, rc):
     client.message_callback_add(lcd_topic,lcd_callback)
 
 def led_callback(client, userdata, msg):
+    global led
     
     # if str(msg.payload, "utf-8") == "1":
     #     print("Yep")
