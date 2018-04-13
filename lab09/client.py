@@ -41,31 +41,32 @@ def on_connect(client, userdata, flags, rc):
 
 def led_callback(client, userdata, msg):
     
-    if str(msg.payload, "utf-8") == "1":
-        print("Yep")
-        if led == "1":
-            print("Turned off")
-            digitalWrite(3, 0)
-            led = "0"
-        else:
-            print("Turned on")
-            digitalWrite(3, 1)
-            led = "1"
-    # if led == "1" and str(msg.payload,"utf-8") == "1":
+    # if str(msg.payload, "utf-8") == "1":
+    #     print("Yep")
+    #     if led == "1":
+    #         print("Turned off")
+    #         digitalWrite(3, 0)
+    #         led = "0"
+    #     else:
+    #         print("Turned on")
+    #         digitalWrite(3, 1)
+    #         led = "1"
+    if led == "1" and str(msg.payload,"utf-8") == "1":
         
-    #     digitalWrite(3,0)
-    #     led=  "0"
+        digitalWrite(3,0)
+        led=  "0"
 
-    # else: 
-    #     digitalWrite(3,1)
-    #     led = str(msg.payload, "utf-8")
+    else: 
+        digitalWrite(3,1)
+        print("alsdjf")
+        led = str(msg.payload, "utf-8")
 
 
-    # print("on_message: " + msg.topic + " " + led)
-    # if led == "0":
-    #         print("LED IS OFF")
-    # else:
-    #         print("LED IS ON")
+    print("on_message: " + msg.topic + " " + led)
+    if led == "0":
+            print("LED IS OFF")
+    else:
+            print("LED IS ON")
 
 
 def lcd_callback(client, userdata, msg):
