@@ -25,9 +25,9 @@ hum = 0
 lcd = ""
 
 
-setRGB(0,255,0)
+pinMode(5,"OUTPUT")
 
-setText("hello")
+setRGB(0,255,0)
 
 
 
@@ -54,12 +54,11 @@ def led_callback(client, userdata, msg):
     #         led = "1"
     if led == "1" and str(msg.payload,"utf-8") == "1":
         
-        digitalWrite(3,0)
+        digitalWrite(5,0)
         led=  "0"
 
     else: 
-        digitalWrite(3,1)
-        print("alsdjf")
+        digitalWrite(5,1)
         led = str(msg.payload, "utf-8")
 
 
@@ -77,16 +76,16 @@ def lcd_callback(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 
-def humidity_callback(client, userdata, msg):
-    global humidity
-    hum = int(msg.payload, "utf-8")
-    print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
+# def humidity_callback(client, userdata, msg):
+#     global humidity
+#     hum = int(msg.payload, "utf-8")
+#     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 
-def temp_callback(client, userdata, msg):
-    global temperature
-    temperature = int(msg.payload, "utf-8")
-    print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
+# def temp_callback(client, userdata, msg):
+#     global temperature
+#     temperature = int(msg.payload, "utf-8")
+#     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 
 def on_message(client, userdata, msg): 
@@ -101,7 +100,7 @@ if __name__ == '__main__':
     client.connect(host = broker_hostname, port = broker_port, keepalive =  60)
     client.loop_start()
 
-    pinMode(3,"OUTPUT")
+    
  
 
     while True:
