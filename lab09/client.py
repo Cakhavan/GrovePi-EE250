@@ -89,7 +89,7 @@ if __name__ == '__main__':
     client.connect(host = broker_hostname, port = broker_port, keepalive =  60)
     client.loop_start()
 
-    pinMode(4,"OUTPUT")
+    pinMode(3,"OUTPUT")
  
 
     while True:
