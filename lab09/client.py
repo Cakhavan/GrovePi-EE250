@@ -62,6 +62,7 @@ def led_callback(client, userdata, msg):
 def lcd_callback(client, userdata, msg):
     global lcd
     lcd = str(msg.payload, "utf-8")
+    setText(lcd)
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 
