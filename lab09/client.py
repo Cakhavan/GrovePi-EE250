@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import time
-import grovepi
+import grovepi 
+from grovepi import *
 import math
 from grove_rgb_lcd import *
 
