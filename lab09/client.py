@@ -102,21 +102,18 @@ if __name__ == '__main__':
 
     
  
-
+    global blue
     while True:
-
         # if led == "0":
         #     print("LED IS OFF")
 
         # else:
         #     print("LED IS ON")
 
-        [temp,humidity] = grovepi.dht(sensor,blue) 
-
-        if math.isnan(temp) == False and math.isnan(humidity) == False:
-
-            client.publish(humidity_topic, humidity)
-            client.publish(temp_topic, temp)
+        [temp,humidity] = grovepi.dht(sensor, blue) 
+       
+        client.publish(humidity_topic, humidity)
+        client.publish(temp_topic, temp)
             
        
         
