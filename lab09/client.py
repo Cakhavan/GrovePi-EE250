@@ -14,7 +14,7 @@ lcd_topic= "anrg-pi12/lcd"
 humidity_topic = "anrg-pi12/humidity"
 temp_topic = "anrg-pi12/temperature" 
 
-sensor = 4 
+sensor = 7 
 blue = 0    # The Blue colored sensor.
 white = 1   # The White colored sensor.
 
