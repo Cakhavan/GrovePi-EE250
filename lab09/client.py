@@ -111,8 +111,8 @@ if __name__ == '__main__':
         #     print("LED IS ON")
 
         [temp,humidity] = grovepi.dht(sensor, blue) 
-        print(temp)
-        print(humidity)
+        print("Temp: " + temp + "\n")
+        print("Humidity: " + humidity + "\n")
         client.publish(humidity_topic, humidity)
         client.publish(temp_topic, temp)
             
