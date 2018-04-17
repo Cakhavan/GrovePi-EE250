@@ -76,17 +76,6 @@ def lcd_callback(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 
-# def humidity_callback(client, userdata, msg):
-#     global humidity
-#     hum = int(msg.payload, "utf-8")
-#     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
-
-
-# def temp_callback(client, userdata, msg):
-#     global temperature
-#     temperature = int(msg.payload, "utf-8")
-#     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
-
 
 def on_message(client, userdata, msg): 
     print(msg.topic + " " + str(msg.payload))
@@ -104,15 +93,10 @@ if __name__ == '__main__':
  
     global blue
     while True:
-        # if led == "0":
-        #     print("LED IS OFF")
-
-        # else:
-        #     print("LED IS ON")
 
         [temp,humidity] = grovepi.dht(sensor, blue) 
-        print("Temp: " + temp + "\n")
-        print("Humidity: " + humidity + "\n")
+        print("Temp: " + str(temp) + "\n")
+        print("Humidity: " + str(humidity) + "\n")
         client.publish(humidity_topic, humidity)
         client.publish(temp_topic, temp)
             
