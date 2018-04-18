@@ -100,7 +100,7 @@ if __name__ == '__main__':
         #print data to terminal for testing
         print("Temp: " + str(temp) + "\n")
         print("Humidity: " + str(humidity) + "\n")
-        #publish hum/temp to respective topics 
+        #publish hum/temp to respective topics   
         client.publish(humidity_topic, humidity)
         client.publish(temp_topic, temp)
             
